@@ -1,10 +1,11 @@
 #Day 3 of Advent of Code 2023
 
 #Schematic of an engine
-#any number that is adjacent to a non-period symbol is a part for the engine
-#return sum of all part numbers
+#find all *s
+    #check if the * is adjacent to 2 separate numbers
+        #if it is then multiply those 2 numbers together
 
-def gear_ratios(input_file):
+def gear_ratios_part_two(input_file):
     input = open(input_file)
     schema = []
     sum = 0
@@ -19,13 +20,23 @@ def gear_ratios(input_file):
         char_index = 0
         line_len = len(line)
         while char_index < line_len - 1:
+
+            # if *
+            # check if 2 separate adjacent numbers
+                #up disqualifies up left and up right
+                #down disqualifies down left and down right
+                #if (up and (down or down left or down right or right or left)) 
+                #or (down and (up or up left or up right or right or left))
+                #or (right and (up left or up right or down left or down right or left))
+                #or (left and (up left or up right or down left or down right))
+
             #for each number loop through each digit of it and check all adjacent values to see if it should be added to sum
             num = ""
             
             keep_num = False
             while line[char_index].isnumeric():
                 num += line[char_index]
-
+ 
                 #up (only if index > 0) 
                 if (line_index > 0 and is_symbol(schema[line_index - 1][char_index])):
                     keep_num = True
@@ -67,4 +78,4 @@ def is_symbol(char):
         return False
     
 if __name__ == "__main__":
-    print(gear_ratios("input.txt"))    
+    print(gear_ratios_part_two("input.txt"))    
